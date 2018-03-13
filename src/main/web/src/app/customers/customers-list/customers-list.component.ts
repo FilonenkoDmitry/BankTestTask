@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Customer } from "../Customer";
 import { CustomersService } from "../customers.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customers-list',
@@ -28,5 +29,11 @@ export class CustomersListComponent implements OnInit {
       }
  
     );
+  }
+
+  editCustomerPage(customer: Customer) {
+    if (customer) {
+      this.router.navigate(['/customers/edit', customer.customerId]);
+    }
   }
 }
