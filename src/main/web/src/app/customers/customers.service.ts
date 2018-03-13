@@ -9,8 +9,6 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class CustomersService {
 
-    private customerUrl = environment.backendUrl + '/customers/{0}';
-  
   constructor(private http: Http) { }
 
   findAll(): Observable<Customer[]>  {
