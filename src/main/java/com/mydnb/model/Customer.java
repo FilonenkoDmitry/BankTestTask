@@ -8,24 +8,12 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-/**
- * One common &#x60;&#x60;&#x60;customer&#x60;&#x60;&#x60;data object for all kinds of customers: Private customers, business customers, and others.  Please note: * Some updates may be required. * Should be aligned with Shared Services Layer: https://shasl.restlet.io/#type_customer * Should be aligned with CIM, while still hiding internal complexity and making it easy to understand and use.
- **/
-
-/**
- * One common &#x60;&#x60;&#x60;customer&#x60;&#x60;&#x60;data object for all kinds of customers: Private customers, business customers, and others.  Please note: * Some updates may be required. * Should be aligned with Shared Services Layer: https://shasl.restlet.io/#type_customer * Should be aligned with CIM, while still hiding internal complexity and making it easy to understand and use.
- */
 @ApiModel(description = "One common ```customer```data object for all kinds of customers: Private customers, business customers, and others.  Please note: * Some updates may be required. * Should be aligned with Shared Services Layer: https://shasl.restlet.io/#type_customer * Should be aligned with CIM, while still hiding internal complexity and making it easy to understand and use.")
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2018-03-11T21:49:00.724+01:00")
 
 public class Customer   {
   private String customerId = null;
 
-  /**
-   * ```PERSON```, ```COMPANY```
-   */
   public enum CustomerTypeEnum {
     PERSON("PERSON"),
     
@@ -344,6 +332,20 @@ public class Customer   {
     sb.append("    customerEngagement: ").append(toIndentedString(customerEngagement)).append("\n");
     sb.append("}");
     return sb.toString();
+  }
+
+  public void update(Customer another) {
+    customerType = another.customerType;
+    firstName = another.firstName;
+    lastName = another.lastName;
+    companyName = another.companyName;
+    address = another.address;
+    email = another.email;
+    phone = another.phone;
+    countryOfBirth = another.countryOfBirth;
+    countryCitizenships = another.countryCitizenships;
+    countryTax = another.countryTax;
+    customerEngagement = another.customerEngagement;
   }
 
   /**

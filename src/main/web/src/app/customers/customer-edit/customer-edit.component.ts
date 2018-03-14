@@ -75,11 +75,11 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
         } 
      }
       this.customerForm.reset();
-      this.router.navigate(['/customer']);
+      this.router.navigate(['/customers']);
   }
  
   redirectCustomerPage() {
-    this.router.navigate(['/customer']);
+    this.router.navigate(['/customers']);
  
   }
 
