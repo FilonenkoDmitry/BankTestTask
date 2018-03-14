@@ -13,7 +13,7 @@ export class CustomersListComponent implements OnInit {
 
   private customers: Customer[];
 
-  constructor(private customersService: CustomersService) { }
+  constructor(private router: Router, private customersService: CustomersService) { }
 
   ngOnInit() {
     this.getAllCustomers();
@@ -33,7 +33,7 @@ export class CustomersListComponent implements OnInit {
 
   editCustomerPage(customer: Customer) {
     if (customer) {
-      this.router.navigate(['/customers/edit', customer.customerId]);
+      this.router.navigate(['/customers', customer.customerId]);
     }
   }
 }

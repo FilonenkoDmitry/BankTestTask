@@ -18,12 +18,13 @@ export class CustomersService {
   }
 
   findById(id: string): Observable<Customer> {
-    return this.http.get(environment.backendUrl + '/customers/${id}')
+    return this.http.get(environment.backendUrl + `/customers/${id}`)
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
  
   updateCustomer(customer: Customer): Observable<Customer> {
-    return null;
+    return this.http.put(environment.backendUrl + `/customers/${customer.customerId}`, customer)
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 }

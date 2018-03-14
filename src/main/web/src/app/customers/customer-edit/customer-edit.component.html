@@ -17,19 +17,34 @@
                      formControlName="lastName">
             </div>
           </fieldset>
+
+          <div class="form-group">
+            <label>Company name</label>
+            <input type="text"
+                   class="form-control"
+                   formControlName="companyName">
+          </div>
  
           <div class="form-group">
-            <label>Email</label>
+            <label>E-Mail</label>
             <input type="email"
                    class="form-control"
                    formControlName="email">
           </div>
+
+          <fieldset>
+            <div class="form-group">
+              <label>City</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="postCity">
+            </div>
+          </fieldset>
  
           <button type="submit" class="btn btn-primary"  [disabled]="!customerForm.valid" >Submit</button>
           <button type="button" class="btn btn-warning" (click)="redirectCustomerPage()">Cancel</button>
-          <pre>{{customerForm.value | json}}</pre>
+          <!-- <pre>{{customerForm.value | json}}</pre> -->
         </form>
       </section>
-    </div>
-  </div>
+    </div>  
 </div>

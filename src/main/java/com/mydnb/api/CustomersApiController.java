@@ -41,7 +41,7 @@ public class CustomersApiController implements CustomersApi {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Customer> getCustomerById(@PathVariable("customerId") String customerId) {
+  public ResponseEntity<Customer> getCustomerById(@PathVariable("id") String customerId) {
     // do some magic!
     Optional<Customer> customer = Arrays.stream(customers).filter(c -> c.getCustomerId().equals(customerId)).findFirst();
 
