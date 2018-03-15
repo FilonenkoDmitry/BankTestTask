@@ -1,3 +1,47 @@
-<p>
-  account-view works!
-</p>
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <section>
+          <header class="header">
+            <div class="row">
+              <div class="col-md-4">
+                <h1>Account #{{id}}</h1>
+              </div>
+              <div class="col-md-6">
+  
+              </div>
+              <div class="col-md-2">
+  
+              </div>
+            </div>
+  
+          </header>
+        </section>
+  
+        <section class="main">  
+          <div class="container-fluid">
+            <div class="row">
+              <strong class="col-sm-4">IBAN:</strong>
+              <div class="col-sm-8">{{account.iban}}</div>
+            </div>
+            <div class="row">
+              <strong class="col-sm-4">BIC:</strong>
+              <div class="col-sm-8">{{account.bic}}</div>
+            </div>
+            <div class="row">
+              <strong class="col-sm-4">Currency:</strong>
+              <div class="col-sm-8">{{account.currency}}</div>
+            </div>
+            <div class="row">
+              <strong class="col-sm-4">Created:</strong>
+              <div class="col-sm-8">{{formatDate(account.created)}}</div>
+            </div>
+            <div class="row">
+              <strong class="col-sm-4">Updated:</strong>
+              <div class="col-sm-8">{{formatDate(account.updated)}}</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>

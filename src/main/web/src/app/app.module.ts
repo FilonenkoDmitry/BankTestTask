@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CustomersModule } from './customers/customers.module';
+import { AccountsModule } from './accounts/accounts.module';
 import { HttpModule } from '@angular/http';
 
 
@@ -15,6 +16,7 @@ import { HttpModule } from '@angular/http';
     BrowserModule,
     AppRoutingModule,
     CustomersModule,
+    AccountsModule,
     HttpModule
   ],
   providers: [],

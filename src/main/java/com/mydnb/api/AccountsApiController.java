@@ -11,7 +11,10 @@ import org.joda.time.format.DateTimeFormatter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
@@ -23,6 +26,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("accounts")
 public class AccountsApiController implements AccountsApi {
 
     private HashMap<String, AccountDetails> accounts = new HashMap<>();
@@ -42,14 +47,14 @@ public class AccountsApiController implements AccountsApi {
         balances.put("0003", new AccountBalance().accountNumber("0003").amountAvailable(new BigDecimal(400)).amountBooked(new BigDecimal(20)).timestamp(timeformatter.parseDateTime("2018-03-15 10:10")));
 
         transactions.put("0001", new ArrayList<>());
-        transactions.get("0001").add(new Transaction().transactionId("1").MCC("MCC1").currency("NOK").amount(new BigDecimal(123.45)).dateBooking(LocalDate.parse("2018-03-15 10:10")).status(Transaction.StatusEnum.BOOKED));
-        transactions.get("0001").add(new Transaction().transactionId("2").MCC("MCC2").currency("NOK").amount(new BigDecimal(67.45)).dateBooking(LocalDate.parse("2018-03-11 10:10")).status(Transaction.StatusEnum.RESERVED));
+        transactions.get("0001").add(new Transaction().transactionId("1").MCC("MCC1").currency("NOK").amount(new BigDecimal(123.45)).dateBooking(LocalDate.parse("2018-03-15")).status(Transaction.StatusEnum.BOOKED));
+        transactions.get("0001").add(new Transaction().transactionId("2").MCC("MCC2").currency("NOK").amount(new BigDecimal(67.45)).dateBooking(LocalDate.parse("2018-03-11")).status(Transaction.StatusEnum.RESERVED));
 
-        payments[0] = new Payment().paymentId("1").creditAccount("0001").debitAccount("0002").date(LocalDate.parse("2018-03-10 10:10")).amount(new BigDecimal(20)).status(Payment.StatusEnum.PENDINGCONFIRMATION);
-        payments[1] = new Payment().paymentId("2").creditAccount("0003").debitAccount("0002").date(LocalDate.parse("2018-03-02 10:10")).amount(new BigDecimal(50)).status(Payment.StatusEnum.CONFIRMED);
-        payments[2] = new Payment().paymentId("3").creditAccount("0003").debitAccount("0001").date(LocalDate.parse("2018-01-02 10:10")).amount(new BigDecimal(500)).status(Payment.StatusEnum.LIMITEXCEEDED);
-        payments[3] = new Payment().paymentId("4").creditAccount("0002").debitAccount("0003").date(LocalDate.parse("2018-03-15 10:10")).amount(new BigDecimal(123.09)).status(Payment.StatusEnum.REJECTED);
-        payments[4] = new Payment().paymentId("5").creditAccount("0001").debitAccount("0003").date(LocalDate.parse("2018-03-11 10:10")).amount(new BigDecimal(56.90)).status(Payment.StatusEnum.CONFIRMED);
+        payments[0] = new Payment().paymentId("1").creditAccount("0001").debitAccount("0002").date(LocalDate.parse("2018-03-10")).amount(new BigDecimal(20)).status(Payment.StatusEnum.PENDINGCONFIRMATION);
+        payments[1] = new Payment().paymentId("2").creditAccount("0003").debitAccount("0002").date(LocalDate.parse("2018-03-02")).amount(new BigDecimal(50)).status(Payment.StatusEnum.CONFIRMED);
+        payments[2] = new Payment().paymentId("3").creditAccount("0003").debitAccount("0001").date(LocalDate.parse("2018-01-02")).amount(new BigDecimal(500)).status(Payment.StatusEnum.LIMITEXCEEDED);
+        payments[3] = new Payment().paymentId("4").creditAccount("0002").debitAccount("0003").date(LocalDate.parse("2018-03-15")).amount(new BigDecimal(123.09)).status(Payment.StatusEnum.REJECTED);
+        payments[4] = new Payment().paymentId("5").creditAccount("0001").debitAccount("0003").date(LocalDate.parse("2018-03-11")).amount(new BigDecimal(56.90)).status(Payment.StatusEnum.CONFIRMED);
     }
 
     public ResponseEntity<AccountBalance> getAccountBalance(@PathVariable("accountNumber") String accountNumber) {
@@ -59,6 +64,7 @@ public class AccountsApiController implements AccountsApi {
         return new ResponseEntity<>(balances.get(accountNumber), HttpStatus.OK);
     }
 
+    @GetMapping("/{accountNumber}")
     public ResponseEntity<AccountDetails> getAccountDetails(@PathVariable("accountNumber") String accountNumber) {
         if (!accounts.containsKey(accountNumber))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
