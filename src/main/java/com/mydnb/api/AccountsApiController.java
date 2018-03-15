@@ -57,19 +57,20 @@ public class AccountsApiController implements AccountsApi {
         payments[4] = new Payment().paymentId("5").creditAccount("0001").debitAccount("0003").date(LocalDate.parse("2018-03-11")).amount(new BigDecimal(56.90)).status(Payment.StatusEnum.CONFIRMED);
     }
 
-    public ResponseEntity<AccountBalance> getAccountBalance(@PathVariable("accountNumber") String accountNumber) {
-        if (!balances.containsKey(accountNumber))
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
-        return new ResponseEntity<>(balances.get(accountNumber), HttpStatus.OK);
-    }
-
     @GetMapping("/{accountNumber}")
     public ResponseEntity<AccountDetails> getAccountDetails(@PathVariable("accountNumber") String accountNumber) {
         if (!accounts.containsKey(accountNumber))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity<>(accounts.get(accountNumber), HttpStatus.OK);
+    }
+
+    @GetMapping("/{accountNumber}/balance")
+    public ResponseEntity<AccountBalance> getAccountBalance(@PathVariable("accountNumber") String accountNumber) {
+        if (!balances.containsKey(accountNumber))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(balances.get(accountNumber), HttpStatus.OK);
     }
 
     public ResponseEntity<Payment> getAccountPaymentDetailsById(@PathVariable("accountNumber") String accountNumber,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountDetails } from "../AccountDetails"
+import { AccountBalance } from "../AccountBalance"
 import { AccountsService } from "../accounts.service"
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -13,6 +14,7 @@ export class AccountViewComponent implements OnInit {
 
   private id: string;
   private account: AccountDetails;
+  private balance: AccountBalance;
 
   private sub: any;
 
@@ -30,8 +32,15 @@ export class AccountViewComponent implements OnInit {
          },error => {
           console.log(error);
          }
+      ); 
+
+      this.accountsService.findBalanceById(this.id).subscribe(
+        balance => {
+            this.balance = balance;
+         },error => {
+          console.log(error);
+         }
       );
- 
     }
   }
 
