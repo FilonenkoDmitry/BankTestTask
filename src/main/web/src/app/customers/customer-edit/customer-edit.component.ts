@@ -31,7 +31,10 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
     this.customerForm = new FormGroup({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
+      postalAddressLine1: new FormControl('', Validators.required),
       postCity: new FormControl('', Validators.required),
+      postCode: new FormControl('', Validators.required),
+      postCountry: new FormControl('', Validators.required),
       companyName: new FormControl('', Validators.required),
       email: new FormControl('', [
         Validators.required,
@@ -46,7 +49,10 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
             this.customerForm.patchValue({
             firstName: customer.firstName,
             lastName: customer.lastName,
+            postalAddressLine1: customer.address.postalAddressLine1,
             postCity: customer.address.postCity,
+            postCode: customer.address.postCode,
+            postCountry: customer.address.postCountry,
             companyName: customer.companyName, 
             email: customer.email,
           });
@@ -69,8 +75,13 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
             this.customerForm.controls['firstName'].value,
             this.customerForm.controls['lastName'].value,
             this.customerForm.controls['companyName'].value,
-            new Address(null, null, null, null, this.customerForm.controls['postCity'].value, null),
-            this.customerForm.controls['email'].value);
+            new Address(this.customerForm.controls['postalAddressLine1'].value, 
+                        null, 
+                        null, 
+                        this.customerForm.controls['postCode'].value, 
+                        this.customerForm.controls['postCity'].value, 
+                        this.customerForm.controls['postCountry'].value),
+                        this.customerForm.controls['email'].value);
           this.customersService.updateCustomer(customer).subscribe();
         } 
      }

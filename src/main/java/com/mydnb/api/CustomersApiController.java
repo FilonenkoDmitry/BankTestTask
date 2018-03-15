@@ -25,8 +25,8 @@ public class CustomersApiController implements CustomersApi {
   public CustomersApiController() {
     this.customers = new Customer[2];
 
-    customers[0] = new Customer().customerId("12345").firstName("John").lastName("Donn").address(new Address().postCity("Oslo")).email("john.donn@dnb.no").companyName("DNB");
-    customers[1] = new Customer().customerId("67890").firstName("Elon").lastName("Musk").address(new Address().postCity("New York")).email("e.musk@spacex.com").companyName("SpaceX");
+    customers[0] = new Customer().customerId("12345").firstName("John").lastName("Donn").address(new Address().postCity("Oslo").postalAddressLine1("Karl Johans Gate 1").postCode("1234").postCountry("Norway")).email("john.donn@dnb.no").companyName("DNB");
+    customers[1] = new Customer().customerId("67890").firstName("Elon").lastName("Musk").address(new Address().postCity("New York").postalAddressLine1("Space Avenue 3").postCode("3333").postCountry("USA")).email("e.musk@spacex.com").companyName("SpaceX");
   }
 
   @GetMapping

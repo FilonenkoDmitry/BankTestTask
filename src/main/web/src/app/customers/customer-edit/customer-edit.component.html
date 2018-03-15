@@ -5,8 +5,8 @@
     <div class="col">
       <section>
         <form novalidate [formGroup]="customerForm" (ngSubmit)="onSubmit()">
-          <div class="row">
-            <div class="col-sm-3">
+          <div class="row" style="padding-left:0px;">
+            <div class="col-sm-3" style="padding-left:0px;">
               <label>First Name</label>
               <input type="text"
                      class="form-control"
@@ -21,8 +21,8 @@
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-sm-3">
+          <div class="row" style="padding-left:0px;">
+            <div class="col-sm-3"  style="padding-left:0px;">
               <label>E-Mail</label>
               <input type="email"
                     class="form-control"
@@ -37,15 +37,35 @@
             </div>
           </div>
           
-          <div class="panel panel-default">
+          <div class="panel panel-default" >
             <div class="panel-heading">Address</div>
             <div class="panel-body">
-                <div class="form-group">
-                    <label>City</label>
+                <div class="row col-sm-6">
+                    <label>Address</label>
                     <input type="text"
-                            class="form-control"
-                            formControlName="postCity">
+                           class="form-control"
+                           formControlName="postalAddressLine1">
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group col-sm-4" style="padding-left:0px;">
+                      <label>City</label>
+                      <input type="text"
+                              class="form-control"
+                              formControlName="postCity">
                   </div>
+                  <div class="form-group col-sm-4">
+                      <label>Post Code</label>
+                      <input type="number"
+                            class="form-control"
+                            formControlName="postCode">
+                  </div>
+                  <div class="form-group col-sm-4"  style="padding-right:0px;">
+                      <label>Country</label>
+                      <input type="text"
+                            class="form-control"
+                            formControlName="postCountry">
+                  </div>
+                </div>
             </div>
           </div>
  
