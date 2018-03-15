@@ -1,21 +1,24 @@
 package com.mydnb.api;
 
-import com.mydnb.model.Account;
 import com.mydnb.model.AccountBalance;
 import com.mydnb.model.AccountDetails;
 import com.mydnb.model.Payment;
 import com.mydnb.model.Transaction;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Authorization;
+import io.swagger.annotations.AuthorizationScope;
 import org.joda.time.LocalDate;
-
-import java.math.BigDecimal;
-
-import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2018-03-11T21:49:00.724+01:00")
@@ -116,7 +119,7 @@ public interface AccountsApi {
 
 
 
-,@ApiParam(value = "Filter for end date (included).") @RequestParam(value = "stopDate", required = false) String stopDate
+,@ApiParam(value = "Filter for end date (included).") @RequestParam(value = "stopDate", required = false) LocalDate stopDate
 
 
 
@@ -186,7 +189,7 @@ public interface AccountsApi {
 
 
 
-,@ApiParam(value = "Filter for maximum amount (included). No decimals.") @RequestParam(value = "amountMaximum", required = false) String amountMaximum
+,@ApiParam(value = "Filter for maximum amount (included). No decimals.") @RequestParam(value = "amountMaximum", required = false) BigDecimal amountMaximum
 
 
 
@@ -203,22 +206,5 @@ public interface AccountsApi {
 
 
 );
-
-
-    @ApiOperation(value = "Get account list for current user", notes = "", response = Account.class, responseContainer = "List", authorizations = {
-        @Authorization(value = "OAuth2", scopes = {
-            @AuthorizationScope(scope = "read", description = "Read"),
-            @AuthorizationScope(scope = "write", description = "Write")
-            })
-    }, tags={ "Accounts", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Status 200", response = Account.class),
-        @ApiResponse(code = 400, message = "Status 400", response = Account.class),
-        @ApiResponse(code = 404, message = "Status 404", response = Account.class) })
-    @RequestMapping(value = "/accounts",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.GET)
-    ResponseEntity<List<Account>> getAccountsForCurrentUser();
 
 }

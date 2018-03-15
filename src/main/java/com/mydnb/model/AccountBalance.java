@@ -7,15 +7,6 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import org.joda.time.DateTime;
 
-
-
-/**
- * Balances for an &#x60;&#x60;&#x60;account&#x60;&#x60;&#x60;. See also: &#x60;&#x60;&#x60;cardBalance&#x60;&#x60;&#x60;.
- **/
-
-/**
- * Balances for an &#x60;&#x60;&#x60;account&#x60;&#x60;&#x60;. See also: &#x60;&#x60;&#x60;cardBalance&#x60;&#x60;&#x60;.
- */
 @ApiModel(description = "Balances for an ```account```. See also: ```cardBalance```.")
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2018-03-11T21:49:00.724+01:00")
 
