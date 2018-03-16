@@ -60,4 +60,16 @@ public class CustomersApiController implements CustomersApi {
 
     return new ResponseEntity<>(found, HttpStatus.OK);
   }
+
+  @GetMapping("/{id}/accounts")
+  public ResponseEntity<String[]> getCustomerAccounts(@PathVariable("id") String customerId) {
+    try {
+      List<String> customerAccounts = customerService.getCustomerAccounts(customerId);
+      String[] accountsAr = new String[customerAccounts.size()];
+      return new ResponseEntity<>(customerAccounts.toArray(accountsAr), HttpStatus.OK);
+    }
+    catch (NotFoundException e) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+  }
 }

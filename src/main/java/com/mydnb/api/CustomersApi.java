@@ -13,4 +13,6 @@ public interface CustomersApi {
 
     ResponseEntity<Customer> updateCustomerById(@PathVariable("id") String customerId,
                                                 @RequestBody Customer updatedCustomer);
+
+    ResponseEntity<String[]> getCustomerAccounts(@PathVariable("id") String customerId);
 }

@@ -9,4 +9,5 @@ public interface ICustomerService {
   List<Customer> getAllCustomers();
   Customer getCustomer(String customerId) throws NotFoundException;
   Customer updateCustomer(Customer updatedCustomer) throws NotFoundException;
+  List<String> getCustomerAccounts(String customerId) throws NotFoundException;
 }
