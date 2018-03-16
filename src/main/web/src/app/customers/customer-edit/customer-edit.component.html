@@ -4,75 +4,111 @@
 <div class="row">
     <div class="col">
       <section>
-        <form novalidate [formGroup]="customerForm" (ngSubmit)="onSubmit()">
-          <div class="row" style="padding-left:0px;">
-            <div class="col-sm-3" style="padding-left:0px;">
-              <label>First Name</label>
-              <input type="text"
-                     class="form-control"
-                     formControlName="firstName">
-            </div>
- 
-            <div class="col-sm-3">
-              <label>Last Name</label>
-              <input type="text"
-                     class="form-control"
-                     formControlName="lastName">
-            </div>
-          </div>
-
-          <div class="row" style="padding-left:0px;">
-            <div class="col-sm-3"  style="padding-left:0px;">
-              <label>E-Mail</label>
-              <input type="email"
-                    class="form-control"
-                    formControlName="email">
-            </div>
-            
-            <div class="col-sm-3">
-              <label>Company name</label>
-              <input type="text"
-                    class="form-control"
-                    formControlName="companyName">
-            </div>
-          </div>
-          
-          <div class="panel panel-default" >
-            <div class="panel-heading">Address</div>
-            <div class="panel-body">
-                <div class="row col-sm-6">
-                    <label>Address</label>
-                    <input type="text"
-                           class="form-control"
-                           formControlName="postalAddressLine1">
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group col-sm-4" style="padding-left:0px;">
-                      <label>City</label>
-                      <input type="text"
+          <table class="table">
+              <thead>
+              <tr>
+                <th><h4>Customer Details</h4></th>
+                <th><h4>Customer Accounts</h4></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td class="col-sm-6">
+                  <form novalidate [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+                    <div class="row" style="padding-left:0px;">
+                      <div class="col-sm-6" style="padding-left:0px;">
+                        <label>First Name</label>
+                        <input type="text"
                               class="form-control"
-                              formControlName="postCity">
-                  </div>
-                  <div class="form-group col-sm-4">
-                      <label>Post Code</label>
-                      <input type="number"
-                            class="form-control"
-                            formControlName="postCode">
-                  </div>
-                  <div class="form-group col-sm-4"  style="padding-right:0px;">
-                      <label>Country</label>
-                      <input type="text"
-                            class="form-control"
-                            formControlName="postCountry">
-                  </div>
-                </div>
-            </div>
-          </div>
- 
-          <button type="submit" class="btn btn-primary"  [disabled]="!customerForm.valid" >Submit</button>
-          <button type="button" class="btn btn-warning" (click)="redirectCustomerPage()">Cancel</button>
-          <!-- <pre>{{customerForm.value | json}}</pre> -->
-        </form>
+                              formControlName="firstName">
+                      </div>
+          
+                      <div class="col-sm-6">
+                        <label>Last Name</label>
+                        <input type="text"
+                              class="form-control"
+                              formControlName="lastName">
+                      </div>
+                    </div>
+
+                    <div class="row" style="padding-left:0px;">
+                      <div class="col-sm-6"  style="padding-left:0px;">
+                        <label>E-Mail</label>
+                        <input type="email"
+                              class="form-control"
+                              formControlName="email">
+                      </div>
+                      
+                      <div class="col-sm-6">
+                        <label>Company name</label>
+                        <input type="text"
+                              class="form-control"
+                              formControlName="companyName">
+                      </div>
+                    </div>
+                    
+                    <div style="padding-right:30px;">
+                      <div class="panel panel-default" style="padding-left:0px;padding-right:0px;">
+                        <div class="panel-heading" style="margin-left:0px;">Address</div>
+                        <div class="panel-body">
+                            <div class="row" style="margin-right:0px;">
+                                <label>Address</label>
+                                <input type="text"
+                                      class="form-control"
+                                      formControlName="postalAddressLine1">
+                            </div>
+                            <div>
+                              <div class="form-group col-sm-4" style="padding-left:0px;">
+                                  <label>City</label>
+                                  <input type="text"
+                                          class="form-control"
+                                          formControlName="postCity">
+                              </div>
+                              <div class="form-group col-sm-4">
+                                  <label>Post Code</label>
+                                  <input type="number"
+                                        class="form-control"
+                                        formControlName="postCode">
+                              </div>
+                              <div class="form-group col-sm-4" style="padding-right:0px;">
+                                  <label>Country</label>
+                                  <input type="text"
+                                        class="form-control"
+                                        formControlName="postCountry">
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                              
+                    <div class="row col-sm-6" >
+                      <button type="submit" class="btn btn-primary col-sm-2"  [disabled]="!customerForm.valid" style="margin-right:10px;">Submit</button>
+                      <button type="button" class="btn btn-warning col-sm-2" (click)="redirectCustomerPage()">Cancel</button>
+                    </div>
+                    <!-- <pre>{{customerForm.value | json}}</pre> -->
+                  </form>
+                </td>
+                <td class="col-sm-6">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Account #</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let account of accounts">
+                        <td>{{account}}</td>
+                        <td>
+                            <button type="button" class="btn btn-success" (click)="openAccountPage(account)">Open</button>
+                        </td>
+                      </tr>              
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
       </section>
     </div>  
 </div>

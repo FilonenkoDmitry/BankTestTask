@@ -15,6 +15,7 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
 
   id: string;
   customer: Customer;
+  accounts: string[];
  
   customerForm: FormGroup;
   private sub: any;
@@ -60,7 +61,15 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
           console.log(error);
          }
       );
- 
+      
+      this.customersService.findCustomerAccounts(this.id).subscribe(
+        accNumbers => {
+          this.accounts = accNumbers;
+        }
+        ,error => {
+          console.log(error);
+         }
+      )
     }
   }
 

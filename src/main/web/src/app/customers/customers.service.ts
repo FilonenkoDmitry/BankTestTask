@@ -27,4 +27,10 @@ export class CustomersService {
     return this.http.put(environment.backendUrl + `/customers/${customer.customerId}`, customer)
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
+
+  findCustomerAccounts(id: string): Observable<string[]> {
+    return this.http.get(environment.backendUrl + `/customers/${id}/accounts`)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
 }
