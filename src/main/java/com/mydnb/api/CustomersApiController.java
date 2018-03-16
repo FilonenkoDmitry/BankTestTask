@@ -1,7 +1,8 @@
 package com.mydnb.api;
 
-import com.mydnb.model.Address;
 import com.mydnb.model.Customer;
+import com.mydnb.service.ICustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,48 +13,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.Arrays;
-import java.util.Optional;
+import java.util.List;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("customers")
 public class CustomersApiController implements CustomersApi {
 
-  private Customer[] customers = new Customer[2];
+  private ICustomerService customerService;
 
-  public CustomersApiController() {
-    this.customers = new Customer[2];
-
-    customers[0] = new Customer().customerId("12345").firstName("John").lastName("Donn").address(new Address().postCity("Oslo").postalAddressLine1("Karl Johans Gate 1").postCode("1234").postCountry("Norway")).email("john.donn@dnb.no").companyName("DNB");
-    customers[1] = new Customer().customerId("67890").firstName("Elon").lastName("Musk").address(new Address().postCity("New York").postalAddressLine1("Space Avenue 3").postCode("3333").postCountry("USA")).email("e.musk@spacex.com").companyName("SpaceX");
+  public CustomersApiController(@Autowired ICustomerService customerService) {
+    this.customerService = customerService;
   }
 
   @GetMapping
   public ResponseEntity<Customer[]> getAllCustomers() {
-    return new ResponseEntity<>(customers, HttpStatus.OK);
+    List<Customer> allCustomers = customerService.getAllCustomers();
+    Customer[] customersArr = new Customer[allCustomers.size()];
+    return new ResponseEntity<>(allCustomers.toArray(customersArr), HttpStatus.OK);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<Customer> updateCustomerById(@PathVariable("id") String customerId,
-                                                     @RequestBody Customer updatedCustomer) {
-    Optional<Customer> existingCustomer = Arrays.stream(customers).filter(c -> c.getCustomerId().equals(customerId)).findFirst();
-
-    if (!existingCustomer.isPresent())
+                                                     @RequestBody Customer toUpdate) {
+    toUpdate.setCustomerId(customerId);
+    Customer updated;
+    try {
+      updated = customerService.updateCustomer(toUpdate);
+    }
+    catch (NotFoundException e) {
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
-    existingCustomer.get().update(updatedCustomer);
-
-    return new ResponseEntity<>(existingCustomer.get(), HttpStatus.OK);
+    return new ResponseEntity<>(updated, HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<Customer> getCustomerById(@PathVariable("id") String customerId) {
-    Optional<Customer> customer = Arrays.stream(customers).filter(c -> c.getCustomerId().equals(customerId)).findFirst();
-
-    if (!customer.isPresent())
+    Customer found;
+    try {
+      found = customerService.getCustomer(customerId);
+    }
+    catch (NotFoundException e) {
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
-    return new ResponseEntity<>(customer.get(), HttpStatus.OK);
+    return new ResponseEntity<>(found, HttpStatus.OK);
   }
 }
