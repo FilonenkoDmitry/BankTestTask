@@ -16,9 +16,10 @@ describe('CustomerEditComponent', () => {
 
   beforeEach(async(() => {
   const stubCustomer = new Customer("111", "John", "Lennon", "The Beatles", new Address("Penny Lane 23", null, null, "123", "Liverpool", "UK"), "lennon@beatles.com");
-  const stubCustomersService = jasmine.createSpyObj('CustomersService', ['findById', 'findCustomerAccounts']);
+  const stubCustomersService = jasmine.createSpyObj('CustomersService', ['findById', 'findCustomerAccounts', 'updateCustomer']);
   stubCustomersService.findById.and.returnValue(Observable.of(stubCustomer));
   stubCustomersService.findCustomerAccounts.and.returnValue(Observable.of(['999']));
+  stubCustomersService.updateCustomer.and.returnValue(Observable.of(stubCustomer));
 
     TestBed.configureTestingModule({
       imports: [
@@ -57,5 +58,22 @@ describe('CustomerEditComponent', () => {
     expect(component.customerForm.value['postCity']).toEqual("Liverpool");
     expect(component.customerForm.value['postCountry']).toEqual("UK");
     expect(component.customerForm.value['email']).toEqual("lennon@beatles.com");
+  });
+
+  it('on submit should push form content to backend', () => {
+    component.ngOnInit();
+
+    component.customerForm.value['firstName'] = "Fyodor";
+    component.customerForm.value['lastName'] = "Dostoevsky";
+    component.customerForm.value['companyName'] = "Tolstoy & Co";
+    component.customerForm.value['postalAddressLine1'] = "Gorohovaya 23";
+    component.customerForm.value['postCode'] = "123456";
+    component.customerForm.value['postCity'] = "St.Petersburg";
+    component.customerForm.value['postCountry'] = "Russia";
+    component.customerForm.value['email'] = "idiot@karamazovy.ru";
+    
+    component.onSubmit();    
+
+    expect(customersService.updateCustomer).toHaveBeenCalledWith(new Customer("111", "Fyodor", "Dostoevsky", "Tolstoy & Co", new Address("Gorohovaya 23", null, null, "123456", "St.Petersburg", "Russia"), "idiot@karamazovy.ru"));
   });
 });
