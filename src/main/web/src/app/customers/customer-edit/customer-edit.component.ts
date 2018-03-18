@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {CustomersService} from "../customers.service";
 import {Customer} from "../Customer";
 import {ActivatedRoute, Router} from '@angular/router';
@@ -101,6 +102,10 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   redirectCustomerPage() {
     this.router.navigate(['/customers']);
  
+  }
+
+  openAccountPage(accountId) {
+    this.router.navigate([`/accounts/${accountId}`]);
   }
 
 }
