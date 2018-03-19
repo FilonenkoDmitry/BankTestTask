@@ -3,6 +3,8 @@ import { AccountDetails } from "../AccountDetails"
 import { AccountBalance } from "../AccountBalance"
 import { AccountsService } from "../accounts.service"
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Payment } from '../Payment';
 
 @Component({
   selector: 'app-account-view',
@@ -15,6 +17,11 @@ export class AccountViewComponent implements OnInit {
   private id: string;
   private account: AccountDetails;
   private balance: AccountBalance;
+  private payments: Payment[];
+
+  fromDate: NgbDateStruct;
+  toDate: NgbDateStruct;
+  date: {year: number, month: number};
 
   private sub: any;
 
@@ -42,6 +49,8 @@ export class AccountViewComponent implements OnInit {
          }
       );
     }
+
+    this.initDuePeriod();
   }
 
   ngOnDestroy(): void {
@@ -55,5 +64,23 @@ export class AccountViewComponent implements OnInit {
             date.getUTCFullYear() + " " +
            ("0" + date.getUTCHours()).slice(-2) + ":" +
            ("0" + date.getUTCMinutes()).slice(-2);   
+  }
+
+  initDuePeriod() {
+    var now = new Date(Date.now());
+    this.fromDate = {year: now.getFullYear(), month: now.getMonth(), day: now.getDate()};
+    this.toDate = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
+  }
+
+  showPayments() {
+    this.accountsService.getDuePayments(this.id, 
+      new Date(this.fromDate.year, this.fromDate.month, this.fromDate.day), 
+      new Date(this.toDate.year, this.toDate.month, this.toDate.day)).subscribe(
+      payments => {
+        this.payments = payments;
+     },error => {
+      console.log(error);
+     }
+    );
   }
 }

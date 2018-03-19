@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
 import { Observable } from "rxjs/Observable";
 import { environment } from '../../environments/environment';
+import { Payment } from './Payment';
 
 @Injectable()
 export class AccountsService {
@@ -20,6 +21,12 @@ export class AccountsService {
 
   findBalanceById(id: string): Observable<AccountBalance> {
     return this.http.get(environment.backendUrl + `/accounts/${id}/balance`)
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  getDuePayments(id:string, from: Date, to: Date): Observable<Payment[]> {
+    return this.http.get(environment.backendUrl + `/accounts/${id}/payments?startDate=${from}&stopDate=${to}`)
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }

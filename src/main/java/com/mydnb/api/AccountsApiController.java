@@ -85,6 +85,7 @@ public class AccountsApiController implements AccountsApi {
         return new ResponseEntity<>(payment.get(), HttpStatus.OK);
     }
 
+    @GetMapping("/{accountNumber}/payments")
     public ResponseEntity<List<Payment>> getAccountPaymentsDue(@PathVariable("accountNumber") String accountNumber,
                                                                @RequestParam(value = "startDate", required = false) LocalDate startDate,
                                                                @RequestParam(value = "stopDate", required = false) LocalDate stopDate) {

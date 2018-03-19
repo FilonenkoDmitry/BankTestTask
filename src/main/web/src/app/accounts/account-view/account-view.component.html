@@ -1,67 +1,142 @@
 <div class="container">
-    <div class="row">
-      <div class="col">
-        <section>
-          <header class="header">
-            <div class="row">
-              <div class="col-md-4">
-                <h1>Account #{{id}}</h1>
-              </div>
-            </div>  
-          </header>
-        </section>
-  
-        <section class="main">  
-            <table class="table">
-                <thead>
-                <tr>
-                  <th><h4>Details</h4></th>
-                  <th><h4>Balance</h4></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>
-                      <div *ngIf="account">
-                        <div class="row">
-                          <strong class="col-sm-4">IBAN:</strong>
-                          <div class="col-sm-8">{{account.iban}}</div>
+  <div class="row">
+    <div class="col">
+      <section>
+        <header class="header">
+          <div class="row">
+            <div class="col-md-4">
+              <h1>Account #{{id}}</h1>
+            </div>
+          </div>
+        </header>
+      </section>
+
+      <section class="main">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                <h4>Details</h4>
+              </th>
+              <th>
+                <h4>Balance</h4>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div *ngIf="account">
+                  <div class="row">
+                    <strong class="col-sm-4">IBAN:</strong>
+                    <div class="col-sm-8">{{account.iban}}</div>
+                  </div>
+                  <div class="row">
+                    <strong class="col-sm-4">BIC:</strong>
+                    <div class="col-sm-8">{{account.bic}}</div>
+                  </div>
+                  <div class="row">
+                    <strong class="col-sm-4">Currency:</strong>
+                    <div class="col-sm-8">{{account.currency}}</div>
+                  </div>
+                  <div class="row">
+                    <strong class="col-sm-4">Created:</strong>
+                    <div class="col-sm-8">{{formatDate(account.created)}}</div>
+                  </div>
+                  <div class="row">
+                    <strong class="col-sm-4">Updated:</strong>
+                    <div class="col-sm-8">{{formatDate(account.updated)}}</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="balance">
+                  <div class="row">
+                    <strong class="col-sm-4">Available:</strong>
+                    <div class="col-sm-8">{{balance.amountAvailable}}</div>
+                  </div>
+                  <div class="row">
+                    <strong class="col-sm-4">Booked:</strong>
+                    <div class="col-sm-8">{{balance.amountBooked}}</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                <h4>Due payments</h4>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div *ngIf="account">
+                  <div class="row">
+                    <div class="col-sm-3 col">
+                      <label>From date:</label>
+                      <form class="form-inline">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fromDate" ngbDatepicker #d="ngbDatepicker">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                                <img src="assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                        <div class="row">
-                          <strong class="col-sm-4">BIC:</strong>
-                          <div class="col-sm-8">{{account.bic}}</div>
+                      </form>
+                    </div>
+                    <div class="col-sm-3 col">
+                      <label>To date:</label>
+                      <form class="form-inline">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="toDate" ngbDatepicker #d="ngbDatepicker">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                                <img src="assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                        <div class="row">
-                          <strong class="col-sm-4">Currency:</strong>
-                          <div class="col-sm-8">{{account.currency}}</div>
-                        </div>
-                        <div class="row">
-                          <strong class="col-sm-4">Created:</strong>
-                          <div class="col-sm-8">{{formatDate(account.created)}}</div>
-                        </div>
-                        <div class="row">
-                          <strong class="col-sm-4">Updated:</strong>
-                          <div class="col-sm-8">{{formatDate(account.updated)}}</div>
-                        </div>
-                      </div>
-                  </td>
-                  <td>
-                      <div *ngIf="balance">
-                        <div class="row">
-                          <strong class="col-sm-4">Available:</strong>
-                          <div class="col-sm-8">{{balance.amountAvailable}}</div>
-                        </div>
-                        <div class="row">
-                          <strong class="col-sm-4">Booked:</strong>
-                          <div class="col-sm-8">{{balance.amountBooked}}</div>
-                        </div>
-                      </div>
-                  </td>
-                </tr>
-      
-                </tbody>
-              </table>
-        </section>
-      </div>
+                      </form>
+                    </div>
+                    <div class="col-sm-2 col" style="margin-top:30px;">                        
+                        <button type="button" class="btn btn-success" (click)="showPayments()">Show payments</button>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>To</th>
+                          <th>Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let payment of payments">
+                          <td>{{payment.paymentId}}</td>
+                          <td>{{payment.debitAccount}}</td>
+                          <td>{{payment.amount}}</td>
+                        </tr>              
+                        </tbody>
+                      </table>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- <ngb-datepicker #dp [(ngModel)]="dateModel" (navigate)="dateModel = $event.next"></ngb-datepicker> -->
+      </section>
     </div>
   </div>
+</div>
