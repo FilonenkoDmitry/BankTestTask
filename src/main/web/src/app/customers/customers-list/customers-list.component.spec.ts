@@ -48,11 +48,11 @@ describe('CustomersListComponent', () => {
     var rows = fixture.nativeElement.querySelectorAll('tr');
 
     expect(rows.length).toBe(3);
-    ["John", "Lennon", "The Beatles", "Liverpool", "lennon@beatles.com"].forEach(element => {
+    ["111", "John", "Lennon", "Liverpool", "lennon@beatles.com"].forEach(element => {
       expect(rows[1].innerHTML).toContain(element);  
     });
 
-    ["Fyodor", "Dostoevsky", "Tolstoy & Co", "St.Petersburg", "idiot@karamazovy.ru"].forEach(element => {
+    ["222", "Fyodor", "Dostoevsky", "St.Petersburg", "idiot@karamazovy.ru"].forEach(element => {
       expect(rows[2].innerHTML).toContain(element);  
     });
   });
