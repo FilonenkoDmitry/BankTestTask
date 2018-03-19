@@ -50,28 +50,28 @@ describe('CustomerEditComponent', () => {
     customersService.findById('123')
     component.ngOnInit();
 
-    expect(component.customerForm.value['firstName']).toEqual("John");
-    expect(component.customerForm.value['lastName']).toEqual("Lennon");
-    expect(component.customerForm.value['companyName']).toEqual("The Beatles");
-    expect(component.customerForm.value['postalAddressLine1']).toEqual("Penny Lane 23");
-    expect(component.customerForm.value['postCode']).toEqual("123");
-    expect(component.customerForm.value['postCity']).toEqual("Liverpool");
-    expect(component.customerForm.value['postCountry']).toEqual("UK");
-    expect(component.customerForm.value['email']).toEqual("lennon@beatles.com");
+    expect(component.customerForm.controls.firstName.value).toEqual("John");
+    expect(component.customerForm.controls.lastName.value).toEqual("Lennon");
+    expect(component.customerForm.controls.companyName.value).toEqual("The Beatles");
+    expect(component.customerForm.controls.postalAddressLine1.value).toEqual("Penny Lane 23");
+    expect(component.customerForm.controls.postCode.value).toEqual("123");
+    expect(component.customerForm.controls.postCity.value).toEqual("Liverpool");
+    expect(component.customerForm.controls.postCountry.value).toEqual("UK");
+    expect(component.customerForm.controls.email.value).toEqual("lennon@beatles.com");
   });
 
   it('on submit should push form content to backend', () => {
     component.ngOnInit();
 
-    component.customerForm.value['firstName'] = "Fyodor";
-    component.customerForm.value['lastName'] = "Dostoevsky";
-    component.customerForm.value['companyName'] = "Tolstoy & Co";
-    component.customerForm.value['postalAddressLine1'] = "Gorohovaya 23";
-    component.customerForm.value['postCode'] = "123456";
-    component.customerForm.value['postCity'] = "St.Petersburg";
-    component.customerForm.value['postCountry'] = "Russia";
-    component.customerForm.value['email'] = "idiot@karamazovy.ru";
-    
+    component.customerForm.controls.firstName.setValue("Fyodor");
+    component.customerForm.controls.lastName.setValue("Dostoevsky");
+    component.customerForm.controls.companyName.setValue("Tolstoy & Co");
+    component.customerForm.controls.postalAddressLine1.setValue("Gorohovaya 23");
+    component.customerForm.controls.postCode.setValue("123456");
+    component.customerForm.controls.postCity.setValue("St.Petersburg");
+    component.customerForm.controls.postCountry.setValue("Russia");
+    component.customerForm.controls.email.setValue("idiot@karamazovy.ru");
+
     component.onSubmit();    
 
     expect(customersService.updateCustomer).toHaveBeenCalledWith(new Customer("111", "Fyodor", "Dostoevsky", "Tolstoy & Co", new Address("Gorohovaya 23", null, null, "123456", "St.Petersburg", "Russia"), "idiot@karamazovy.ru"));
