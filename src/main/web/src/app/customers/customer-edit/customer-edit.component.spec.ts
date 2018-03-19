@@ -15,11 +15,11 @@ describe('CustomerEditComponent', () => {
   let fixture: ComponentFixture<CustomerEditComponent>;
 
   beforeEach(async(() => {
-  const stubCustomer = new Customer("111", "John", "Lennon", "The Beatles", new Address("Penny Lane 23", null, null, "123", "Liverpool", "UK"), "lennon@beatles.com");
-  const stubCustomersService = jasmine.createSpyObj('CustomersService', ['findById', 'findCustomerAccounts', 'updateCustomer']);
-  stubCustomersService.findById.and.returnValue(Observable.of(stubCustomer));
-  stubCustomersService.findCustomerAccounts.and.returnValue(Observable.of(['999']));
-  stubCustomersService.updateCustomer.and.returnValue(Observable.of(stubCustomer));
+    const stubCustomer = new Customer("111", "John", "Lennon", "The Beatles", new Address("Penny Lane 23", null, null, "123", "Liverpool", "UK"), "lennon@beatles.com");
+    const stubCustomersService = jasmine.createSpyObj('CustomersService', ['findById', 'findCustomerAccounts', 'updateCustomer']);
+    stubCustomersService.findById.and.returnValue(Observable.of(stubCustomer));
+    stubCustomersService.findCustomerAccounts.and.returnValue(Observable.of(['999']));
+    stubCustomersService.updateCustomer.and.returnValue(Observable.of(stubCustomer));
 
     TestBed.configureTestingModule({
       imports: [
