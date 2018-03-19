@@ -85,10 +85,10 @@ public class AccountsApiController implements AccountsApi {
         return new ResponseEntity<>(payment.get(), HttpStatus.OK);
     }
 
-    @GetMapping("/{accountNumber}/payments")
+    @GetMapping(value = "/{accountNumber}/payments", params = {"startDate", "stopDate"})
     public ResponseEntity<List<Payment>> getAccountPaymentsDue(@PathVariable("accountNumber") String accountNumber,
-                                                               @RequestParam(value = "startDate", required = false) LocalDate startDate,
-                                                               @RequestParam(value = "stopDate", required = false) LocalDate stopDate) {
+                                                               @RequestParam(value = "startDate", required = false) @org.springframework.format.annotation.DateTimeFormat(pattern="yyyy-MM-dd") LocalDate startDate,
+                                                               @RequestParam(value = "stopDate", required = false) @org.springframework.format.annotation.DateTimeFormat(pattern="yyyy-MM-dd") LocalDate stopDate) {
         return new ResponseEntity<>(
                 Arrays.stream(payments)
                       .filter(p -> p.getCreditAccount().equals(accountNumber) && p.getDate().isAfter(startDate) && p.getDate().isBefore(stopDate))

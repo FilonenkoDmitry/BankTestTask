@@ -26,8 +26,12 @@ export class AccountsService {
   }
 
   getDuePayments(id:string, from: Date, to: Date): Observable<Payment[]> {
-    return this.http.get(environment.backendUrl + `/accounts/${id}/payments?startDate=${from}&stopDate=${to}`)
+    return this.http.get(environment.backendUrl + `/accounts/${id}/payments?startDate=${this.dateToString(from)}&stopDate=${this.dateToString(to)}`)
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  private dateToString(date: Date): string {
+    return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
   }
 }
